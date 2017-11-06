@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
-    android:background="#ffffff"
+    android:background="@mipmap/game_loading"
     tools:context="com.example.appdemo.view.MainActivity">
     <TextView
         android:id="@+id/txt_play"
@@ -13,10 +13,9 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
-        android:text="进入游戏"
-        android:textSize="20dp"
+        android:text="@string/play_game"
+        android:textSize="20sp"
         android:gravity="center"
         android:textColor="#ffffff"
         android:background="@drawable/shape_corner" />
-
 </LinearLayout>
