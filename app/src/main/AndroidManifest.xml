@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".view.LoginActivity"></activity>
         <activity android:name=".view.LoadingActivity"></activity>
+        <activity android:name=".view.GameActivity"></activity>
     </application>
 
 </manifest>
