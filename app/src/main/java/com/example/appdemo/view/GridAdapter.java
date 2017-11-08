@@ -65,14 +65,13 @@ public class GridAdapter extends BaseAdapter {
         imageview.setImageResource(itemId[position]); // 为ImageView设置要显示的图片
         imageview.setImageAlpha(Integer.MAX_VALUE);
         if(clickTemp == position){    //根据点击的Item当前状态设置背景
-            if (clickedList[position] == 0){
-                imageview.setBackgroundColor(Color.BLUE);
+            if (clickedList[position] == 0) {
+                imageview.setBackgroundColor(Color.CYAN);
                 clickedList[position] = 1;
             }
             else {
                 imageview.setBackgroundColor(Color.TRANSPARENT);
                 clickedList[position] = 0;
-                clickTemp = -1;
             }
         }
         return imageview;

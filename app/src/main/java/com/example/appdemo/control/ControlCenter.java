@@ -8,9 +8,9 @@ public class ControlCenter {
     private static ActivityControl activityControl;
     private static GameControl gameControl;
 
-    static {
+    public static void init(int columnCount) {
         activityControl = new ActivityControlImpl();
-        gameControl = new GameControlImpl();
+        gameControl = new GameControlImpl(columnCount);
     }
 
     public static ActivityControl getActivityControl() {
