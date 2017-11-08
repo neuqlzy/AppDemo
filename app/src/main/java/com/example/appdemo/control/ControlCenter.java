@@ -6,16 +6,18 @@ package com.example.appdemo.control;
 
 public class ControlCenter {
     private static ActivityControl activityControl;
+    private static GameControl gameControl;
 
     static {
         activityControl = new ActivityControlImpl();
+        gameControl = new GameControlImpl();
     }
 
     public static ActivityControl getActivityControl() {
         return activityControl;
     }
 
-    public static void setActivityControl(ActivityControl activityControl) {
-        ControlCenter.activityControl = activityControl;
+    public static GameControl getGameControl() {
+        return gameControl;
     }
 }

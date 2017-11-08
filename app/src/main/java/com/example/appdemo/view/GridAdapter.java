@@ -72,6 +72,7 @@ public class GridAdapter extends BaseAdapter {
             else {
                 imageview.setBackgroundColor(Color.TRANSPARENT);
                 clickedList[position] = 0;
+                clickTemp = -1;
             }
         }
         return imageview;

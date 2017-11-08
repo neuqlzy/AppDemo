@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.8"
-        android:src="@mipmap/game_loading"
+        android:src="@drawable/game_background"
         android:scaleType="fitXY"/>
     <TableLayout
         android:layout_width="match_parent"
