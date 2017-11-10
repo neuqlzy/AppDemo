@@ -2,18 +2,11 @@ package com.example.appdemo.view;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * Created by 李泽阳 on 2017/11/7.
- */
 
 public class GridAdapter extends BaseAdapter {
 

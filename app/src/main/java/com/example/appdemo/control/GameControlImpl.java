@@ -5,10 +5,6 @@ import com.example.appdemo.model.EliminateServiceImpl;
 import com.example.appdemo.model.RandomService;
 import com.example.appdemo.model.RandomServiceImpl;
 
-/**
- * Created by 李泽阳 on 2017/11/8.
- */
-
 public class GameControlImpl implements GameControl {
     private RandomService randomService;
     private EliminateService eliminateService;

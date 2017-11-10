@@ -3,11 +3,9 @@ package com.example.appdemo.view;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.appdemo.R;
-import com.example.appdemo.control.ActivityControlImpl;
 import com.example.appdemo.control.ControlCenter;
 
 public class MainActivity extends AppCompatActivity {

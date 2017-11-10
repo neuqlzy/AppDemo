@@ -2,10 +2,6 @@ package com.example.appdemo.model;
 
 import com.example.appdemo.R;
 
-/**
- * Created by 李泽阳 on 2017/11/8.
- */
-
 public class GameIconList {
     private final static int[] icons = {
             R.mipmap.mushroom,

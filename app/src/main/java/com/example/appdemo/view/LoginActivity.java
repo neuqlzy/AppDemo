@@ -10,10 +10,6 @@ import android.view.View;
 import com.example.appdemo.R;
 import com.example.appdemo.control.ControlCenter;
 
-/**
- * Created by 李泽阳 on 2017/10/31.
- */
-
 public class LoginActivity extends AppCompatActivity {
     private Button btn_login;
 

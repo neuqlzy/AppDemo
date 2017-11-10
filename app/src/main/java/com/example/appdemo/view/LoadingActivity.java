@@ -8,10 +8,6 @@ import com.example.appdemo.control.ControlCenter;
 
 import java.util.TimerTask;
 
-/**
- * Created by 李泽阳 on 2017/10/31.
- */
-
 public class LoadingActivity extends AppCompatActivity {
     MyTimer timer = new MyTimer();
     TimerTask task = new TimerTask() {

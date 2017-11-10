@@ -1,23 +1,13 @@
 package com.example.appdemo.view;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.SimpleAdapter;
 
 import com.example.appdemo.R;
 import com.example.appdemo.control.ControlCenter;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
-/**
- * Created by 李泽阳 on 2017/11/7.
- */
 
 public class GameActivity extends AppCompatActivity {
     protected GridView game_grid;

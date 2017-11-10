@@ -1,11 +1,5 @@
 package com.example.appdemo.model;
 
-import com.example.appdemo.control.GameControl;
-
-/**
- * Created by 李泽阳 on 2017/11/8.
- */
-
 public class EliminateServiceImpl implements EliminateService {
     @Override
     public int eliminate(int[][] gridData, int x1, int y1, int x2, int y2) {
