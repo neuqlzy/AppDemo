@@ -19,6 +19,11 @@ public class GameIconList {
             R.mipmap.super_paper_mario,
             R.mipmap.yoshi_egg
     };
+
+    private final static int icon_empty = R.mipmap.wrong;
+    public static int getIconEmpty() {
+        return icon_empty;
+    }
     public static int getIconsCount() {
         return icons.length;
     }

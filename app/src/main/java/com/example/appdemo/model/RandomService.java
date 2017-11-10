@@ -6,5 +6,5 @@ package com.example.appdemo.model;
 
 public interface RandomService {
     int[][] initIcons(int columnCount);
-    int getRandomIconId();
+    int fillEmptyBlock(int[][] gridData);
 }

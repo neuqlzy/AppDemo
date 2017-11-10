@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.appdemo.R;
 import com.example.appdemo.control.ControlCenter;
 
-import java.util.Timer;
 import java.util.TimerTask;
 
 /**
@@ -14,7 +13,7 @@ import java.util.TimerTask;
  */
 
 public class LoadingActivity extends AppCompatActivity {
-    Timer timer = new Timer();
+    MyTimer timer = new MyTimer();
     TimerTask task = new TimerTask() {
         @Override
         public void run() {
@@ -27,6 +26,11 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
         ControlCenter.getGameControl().initNewGame();
-        timer.schedule(task, 3000);
+        timer.schedule(this::turn, 3000);
+    }
+
+    private void turn() {
+        ControlCenter.getActivityControl().turnActivity(LoadingActivity.this, GameActivity.class);
+        LoadingActivity.this.finish();
     }
 }

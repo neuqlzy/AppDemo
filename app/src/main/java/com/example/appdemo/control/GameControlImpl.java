@@ -13,6 +13,7 @@ public class GameControlImpl implements GameControl {
     private RandomService randomService;
     private EliminateService eliminateService;
     private int[][] gridData;
+    private int score;
     private int columnCount;
 
     public GameControlImpl(int columnCount) {
@@ -24,6 +25,7 @@ public class GameControlImpl implements GameControl {
     @Override
     public void initNewGame() {
         gridData = randomService.initIcons(columnCount);
+        score = 0;
     }
 
     @Override
@@ -31,20 +33,21 @@ public class GameControlImpl implements GameControl {
         int[] data = new int[gridData.length * gridData.length];
         for(int i = 0; i < gridData.length; i++) {
             for (int j = 0; j < gridData[i].length; j++) {
-                data[i * gridData.length + j] = gridData[i][j];
+                data[i + j * gridData.length] = gridData[i][j];
             }
         }
         return data;
     }
 
     @Override
-    public int[] eliminate() {
-        return new int[0];
+    public int eliminate() {
+
+        return 0;
     }
 
     @Override
-    public int[] eliminate(int position1, int position2) {
-        int[] list = new int[0];
+    public int eliminate(int position1, int position2) {
+        int count = 0;
         int x1, y1, x2, y2;
         x1 = position1 % columnCount;
         y1 = position1 / columnCount;
@@ -52,12 +55,12 @@ public class GameControlImpl implements GameControl {
         y2 = position2 / columnCount;
         if(isAdjacent(x1, y1, x2, y2)) {
             changeBlock(x1, y1, x2, y2);
-            list = eliminate();
-            if(list.length == 0) {
+            count = eliminateService.eliminate(gridData, x1, y1, x2, y2);
+            if(count == 0) {
                 changeBlock(x1, y1, x2, y2);
             }
         }
-        return list;
+        return count;
     }
 
     protected void changeBlock(int x1, int y1, int x2, int y2) {
@@ -71,5 +74,10 @@ public class GameControlImpl implements GameControl {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int fillEmptyBlock() {
+        return randomService.fillEmptyBlock(gridData);
     }
 }
