@@ -21,6 +21,7 @@ public class GameControlImpl implements GameControl {
     @Override
     public void initNewGame() {
         gridData = randomService.initIcons(columnCount);
+        uneliminatableCheck();
         score = 0;
     }
 
@@ -82,5 +83,15 @@ public class GameControlImpl implements GameControl {
     @Override
     public int getScore() {
         return score;
+    }
+
+    @Override
+    public boolean uneliminatableCheck() {
+        if(eliminateService.uneliminatableCheck(gridData)) {
+            gridData = randomService.initIcons(10);
+            uneliminatableCheck();
+            return true;
+        }
+        return false;
     }
 }

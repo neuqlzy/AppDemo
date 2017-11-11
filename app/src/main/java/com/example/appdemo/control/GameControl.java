@@ -12,4 +12,6 @@ public interface GameControl {
     int fillEmptyBlock();
 
     int getScore();
+
+    boolean uneliminatableCheck();
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.appdemo.R;
 import com.example.appdemo.control.ControlCenter;
@@ -18,6 +19,7 @@ public class GameActivity extends AppCompatActivity {
     protected int selected = -1;
     protected MyTimer timer;
     protected MyTimer timer_eli;
+    protected MyTimer timer_check;
     protected boolean waiting = false;
 
     @Override
@@ -78,6 +80,22 @@ public class GameActivity extends AppCompatActivity {
             game_grid.post(GameActivity.this::refresh);
             timer = new MyTimer();
             timer.schedule(this::fill_task, 200);
-        } else waiting = false;
+        } else {
+            timer_check = new MyTimer();
+            timer_check.schedule(this::uneliminatableCheck_task, 200);
+        }
+    }
+
+    private void uneliminatableCheck_task() {
+        timer_check.cancel();
+        if(ControlCenter.getGameControl().uneliminatableCheck()) {
+            game_grid.post(GameActivity.this::refresh);
+            game_grid.post(this::uneliminatable_toast);
+        }
+        waiting = false;
+    }
+
+    protected void uneliminatable_toast() {
+        Toast.makeText(GameActivity.this, "不可消除！", Toast.LENGTH_LONG).show();
     }
 }

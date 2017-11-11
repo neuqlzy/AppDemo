@@ -178,6 +178,78 @@ public class EliminateServiceImpl implements EliminateService {
         return k;
     }
 
+    @Override
+    public boolean uneliminatableCheck(int[][] gridData) {
+        if(VerticalCheck(gridData) || HorizontalCheck(gridData)) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean HorizontalCheck(int[][] gridData) {
+        for (int x = 0; x < gridData.length; x++) {
+            for(int y = 1; y < gridData[x].length; y++) {
+                if(gridData[x][y] == gridData[x][y - 1]) {
+                    if(y - 2 >= 0) {
+                        if(x - 1 >= 0) {
+                            if(gridData[x - 1][y - 2] == gridData[x][y]) return true;
+                        }
+                        if(x + 1 < gridData.length) {
+                            if(gridData[x + 1][y - 2] == gridData[x][y]) return  true;
+                        }
+                    }
+                    if(y - 3 >= 0) {
+                        if(gridData[x][y - 3] == gridData[x][y]) return true;
+                    }
+                    if(y + 1 < gridData[x].length) {
+                        if(x - 1 >= 0) {
+                            if(gridData[x - 1][y + 1] == gridData[x][y]) return true;
+                        }
+                        if(x + 1 < gridData.length) {
+                            if(gridData[x + 1][y + 1] == gridData[x][y]) return  true;
+                        }
+                    }
+                    if(y + 2 < gridData[x].length) {
+                        if(gridData[x][y + 2] == gridData[x][y]) return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean VerticalCheck(int[][] gridData) {
+        for (int y = 0; y < gridData.length; y++) {
+            for(int x = 1; x < gridData.length; x++) {
+                if(gridData[x][y] == gridData[x - 1][y]) {
+                    if(x - 2 >= 0) {
+                        if(y - 1 >= 0) {
+                            if(gridData[x - 2][y - 1] == gridData[x][y]) return true;
+                        }
+                        if(y + 1 < gridData.length) {
+                            if(gridData[x - 2][y + 1] == gridData[x][y]) return  true;
+                        }
+                    }
+                    if(x - 3 >= 0) {
+                        if(gridData[x - 3][y] == gridData[x][y]) return true;
+                    }
+                    if(x + 1 < gridData[x].length) {
+                        if(y - 1 >= 0) {
+                            if(gridData[x + 1][y - 1] == gridData[x][y]) return true;
+                        }
+                        if(y + 1 < gridData.length) {
+                            if(gridData[x + 1][y + 1] == gridData[x][y]) return  true;
+                        }
+                    }
+                    if(x + 2 < gridData[x].length) {
+                        if(gridData[x + 2][y] == gridData[x][y]) return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     private class Eliminatable {
         private Point start;
         private Point end;
