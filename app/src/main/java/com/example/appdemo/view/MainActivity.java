@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.example.appdemo.R;
 import com.example.appdemo.control.ControlCenter;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
     private TextView txt_play;
 
@@ -28,9 +30,21 @@ public class MainActivity extends AppCompatActivity {
         ControlCenter.getActivityControl().turnActivity(MainActivity.this, LoginActivity.class);
     }
 
+    private Calendar backpress = Calendar.getInstance();
+
+    {
+        backpress.add(Calendar.SECOND, -5);
+    }
     @Override
     public void onBackPressed() {
-        //Toast.makeText(getApplicationContext(), "onBackPressed", Toast.LENGTH_SHORT).show();
-        super.onBackPressed();
+        Calendar now = Calendar.getInstance();
+        backpress.add(Calendar.SECOND, 3);
+        if(now.compareTo(backpress) <= 0) {
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);
+        } else {
+            Toast.makeText(getApplicationContext(), "再按一次退出游戏", Toast.LENGTH_SHORT).show();
+        }
+        backpress = now;
     }
 }
