@@ -18,4 +18,6 @@ public interface GameControl {
     int getGameTime();
 
     void incGameTime();
+
+    void stop();
 }

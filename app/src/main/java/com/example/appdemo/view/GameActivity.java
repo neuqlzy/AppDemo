@@ -11,6 +11,9 @@ import android.widget.Toast;
 import com.example.appdemo.R;
 import com.example.appdemo.control.ControlCenter;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class GameActivity extends AppCompatActivity {
     protected GridView game_grid;
     protected TextView txt_score;
@@ -123,5 +126,24 @@ public class GameActivity extends AppCompatActivity {
 
     protected void uneliminatable_toast() {
         Toast.makeText(GameActivity.this, "不可消除！", Toast.LENGTH_LONG).show();
+    }
+
+    private Calendar backpress = Calendar.getInstance();
+
+    {
+        backpress.add(Calendar.SECOND, -5);
+    }
+    @Override
+    public void onBackPressed() {
+        Calendar now = Calendar.getInstance();
+        backpress.add(Calendar.SECOND, 3);
+        if(now.compareTo(backpress) <= 0) {
+            timer.cancel();
+            ControlCenter.getGameControl().stop();
+            ControlCenter.getActivityControl().turnActivity(GameActivity.this, MainActivity.class);
+        } else {
+            Toast.makeText(getApplicationContext(), "再按一次结束游戏", Toast.LENGTH_SHORT).show();
+        }
+        backpress = now;
     }
 }

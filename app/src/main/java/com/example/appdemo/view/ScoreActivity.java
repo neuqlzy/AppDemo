@@ -28,4 +28,11 @@ public class ScoreActivity extends AppCompatActivity {
     private void turnMainActivity() {
         ControlCenter.getActivityControl().turnActivity(ScoreActivity.this, MainActivity.class);
     }
+
+    @Override
+    public void onBackPressed() {
+        timer.cancel();
+        ControlCenter.getActivityControl().turnActivity(ScoreActivity.this, MainActivity.class);
+        super.onBackPressed();
+    }
 }

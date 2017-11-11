@@ -10,23 +10,23 @@ import java.util.TimerTask;
 
 public class LoadingActivity extends AppCompatActivity {
     MyTimer timer = new MyTimer();
-    TimerTask task = new TimerTask() {
-        @Override
-        public void run() {
-            ControlCenter.getActivityControl().turnActivity(LoadingActivity.this, GameActivity.class);
-            LoadingActivity.this.finish();
-        }
-    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
         ControlCenter.getGameControl().initNewGame();
-        timer.schedule(this::turn, 3000);
+        timer.schedule(this::turn, 2000);
     }
 
     private void turn() {
         ControlCenter.getActivityControl().turnActivity(LoadingActivity.this, GameActivity.class);
         LoadingActivity.this.finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        timer.cancel();
+        super.onBackPressed();
     }
 }

@@ -113,4 +113,9 @@ public class GameControlImpl implements GameControl {
     public void incGameTime() {
         this.gameTime--;
     }
+
+    @Override
+    public void stop() {
+        gameTime = 0;
+    }
 }
