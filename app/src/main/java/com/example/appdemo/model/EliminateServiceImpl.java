@@ -1,5 +1,10 @@
 package com.example.appdemo.model;
 
+import android.graphics.Point;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class EliminateServiceImpl implements EliminateService {
     @Override
     public int eliminate(int[][] gridData, int x1, int y1, int x2, int y2) {
@@ -85,5 +90,112 @@ public class EliminateServiceImpl implements EliminateService {
             return xer - xel;
         }
         return 0;
+    }
+
+    protected List<Eliminatable> eliminateVertical(int[][] gridData) {
+        List<Eliminatable> list = new ArrayList<Eliminatable>();
+        int lastId;
+        int startPoint;
+        for(int x = 0; x < gridData.length; x++) {
+            lastId = -1;
+            startPoint = -1;
+            for(int y = 0;y <gridData[x].length; y++) {
+                if(lastId == -1) {
+                    lastId = gridData[x][y];
+                    startPoint = y;
+                } else if(gridData[x][y] != lastId) {
+                    if(y - startPoint > 2) {
+                        Eliminatable eli = new Eliminatable();
+                        eli.setStart(new Point(x, startPoint));
+                        eli.setEnd(new Point(x, y - 1));
+                        list.add(eli);
+                    }
+                    lastId = gridData[x][y];
+                    startPoint = y;
+                } else if(y == gridData[x].length - 1 && y - startPoint > 2) {
+                    Eliminatable eli = new Eliminatable();
+                    eli.setStart(new Point(x, startPoint));
+                    eli.setEnd(new Point(x, y));
+                    list.add(eli);
+                }
+            }
+        }
+        return list;
+    }
+
+    protected List<Eliminatable> eliminateHorizontal(int[][] gridData) {
+        List<Eliminatable> list = new ArrayList<Eliminatable>();
+        int lastId;
+        int startPoint;
+        for(int y = 0; y < gridData.length; y++) {
+            lastId = -1;
+            startPoint = -1;
+            for(int x = 0;x < gridData.length; x++) {
+                if(lastId == -1) {
+                    lastId = gridData[x][y];
+                    startPoint = x;
+                } else if(gridData[x][y] != lastId) {
+                    if(x - startPoint > 2) {
+                        Eliminatable eli = new Eliminatable();
+                        eli.setStart(new Point(startPoint, y));
+                        eli.setEnd(new Point(x - 1, y));
+                        list.add(eli);
+                    }
+                    lastId = gridData[x][y];
+                    startPoint = x;
+                } else if(x == gridData.length - 1 && x - startPoint > 2) {
+                    Eliminatable eli = new Eliminatable();
+                    eli.setStart(new Point(startPoint, y));
+                    eli.setEnd(new Point(x, y));
+                    list.add(eli);
+                }
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public int eliminate(int[][] gridData) {
+        int k = 0;
+        List<Eliminatable> listv = eliminateVertical(gridData);
+        List<Eliminatable> listh = eliminateHorizontal(gridData);
+        for (Eliminatable eli: listv) {
+            for(int i = eli.getStart().y; i <= eli.getEnd().y; i++ ) {
+                if(gridData[eli.getStart().x][i] != GameIconList.getIconEmpty()) {
+                    gridData[eli.getStart().x][i] = GameIconList.getIconEmpty();
+                    k++;
+                }
+            }
+        }
+        for (Eliminatable eli: listh) {
+            for(int i = eli.getStart().x; i <= eli.getEnd().x; i++ ) {
+                if(gridData[i][eli.getStart().y] != GameIconList.getIconEmpty()) {
+                    gridData[i][eli.getStart().y] = GameIconList.getIconEmpty();
+                    k++;
+                }
+            }
+        }
+        return k;
+    }
+
+    private class Eliminatable {
+        private Point start;
+        private Point end;
+
+        public Point getStart() {
+            return start;
+        }
+
+        public void setStart(Point start) {
+            this.start = start;
+        }
+
+        public Point getEnd() {
+            return end;
+        }
+
+        public void setEnd(Point end) {
+            this.end = end;
+        }
     }
 }

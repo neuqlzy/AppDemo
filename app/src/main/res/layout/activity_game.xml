@@ -32,6 +32,7 @@
                 android:layout_height="match_parent"
                 android:gravity="right">
                 <TextView
+                    android:id="@+id/txt_score"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:text="0"

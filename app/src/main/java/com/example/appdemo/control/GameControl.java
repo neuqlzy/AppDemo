@@ -10,4 +10,6 @@ public interface GameControl {
     int eliminate(int position1, int position2);
 
     int fillEmptyBlock();
+
+    int getScore();
 }

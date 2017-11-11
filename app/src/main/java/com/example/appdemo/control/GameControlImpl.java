@@ -37,8 +37,9 @@ public class GameControlImpl implements GameControl {
 
     @Override
     public int eliminate() {
-
-        return 0;
+        int k = eliminateService.eliminate(gridData);
+        score += k;
+        return k;
     }
 
     @Override
@@ -56,6 +57,7 @@ public class GameControlImpl implements GameControl {
                 changeBlock(x1, y1, x2, y2);
             }
         }
+        score += count;
         return count;
     }
 
@@ -75,5 +77,10 @@ public class GameControlImpl implements GameControl {
     @Override
     public int fillEmptyBlock() {
         return randomService.fillEmptyBlock(gridData);
+    }
+
+    @Override
+    public int getScore() {
+        return score;
     }
 }
