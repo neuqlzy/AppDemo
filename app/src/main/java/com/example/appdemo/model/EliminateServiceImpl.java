@@ -212,6 +212,13 @@ public class EliminateServiceImpl implements EliminateService {
                     if(y + 2 < gridData[x].length) {
                         if(gridData[x][y + 2] == gridData[x][y]) return true;
                     }
+                } else if(y > 1 && gridData[x][y] == gridData[x][y - 2]) {
+                    if(x - 1 >= 0) {
+                        if(gridData[x - 1][y - 1] == gridData[x][y]) return true;
+                    }
+                    if(x + 1 >= 0) {
+                        if(gridData[x + 1][y - 1] == gridData[x][y]) return true;
+                    }
                 }
             }
         }
@@ -243,6 +250,13 @@ public class EliminateServiceImpl implements EliminateService {
                     }
                     if(x + 2 < gridData[x].length) {
                         if(gridData[x + 2][y] == gridData[x][y]) return true;
+                    }
+                } else if(x > 1 && gridData[x][y] == gridData[x - 2][y]) {
+                    if(y - 1 >= 0) {
+                        if(gridData[x - 1][y - 1] == gridData[x][y]) return true;
+                    }
+                    if(y + 1 >= 0) {
+                        if(gridData[x - 1][y + 1] == gridData[x][y]) return true;
                     }
                 }
             }

@@ -24,6 +24,7 @@
         <activity android:name=".view.LoginActivity"></activity>
         <activity android:name=".view.LoadingActivity"></activity>
         <activity android:name=".view.GameActivity"></activity>
+        <activity android:name=".view.ScoreActivity"></activity>
     </application>
 
 </manifest>

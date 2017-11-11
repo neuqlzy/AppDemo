@@ -19,6 +19,7 @@
             android:layout_height="50dp"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/txt_exit"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:background="@drawable/shape_corner_5"
@@ -33,12 +34,20 @@
                 android:gravity="right">
                 <TextView
                     android:id="@+id/txt_score"
-                    android:layout_width="100dp"
+                    android:layout_width="120dp"
                     android:layout_height="50dp"
-                    android:text="0"
+                    android:text="得分：0"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
                     android:gravity="center" />
+                <TextView
+                    android:id="@+id/txt_game_time"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:text="时间：60"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:gravity="center"/>
             </LinearLayout>
         </LinearLayout>
         <FrameLayout

@@ -10,6 +10,7 @@ public class GameControlImpl implements GameControl {
     private EliminateService eliminateService;
     private int[][] gridData;
     private int score;
+    private int gameTime;
     private int columnCount;
 
     public GameControlImpl(int columnCount) {
@@ -23,6 +24,7 @@ public class GameControlImpl implements GameControl {
         gridData = randomService.initIcons(columnCount);
         uneliminatableCheck();
         score = 0;
+        gameTime = 60;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class GameControlImpl implements GameControl {
     @Override
     public int eliminate() {
         int k = eliminateService.eliminate(gridData);
-        score += k;
+        plusScore(k);
         return k;
     }
 
@@ -58,7 +60,7 @@ public class GameControlImpl implements GameControl {
                 changeBlock(x1, y1, x2, y2);
             }
         }
-        score += count;
+        plusScore(count);
         return count;
     }
 
@@ -85,6 +87,13 @@ public class GameControlImpl implements GameControl {
         return score;
     }
 
+    private void plusScore(int value) {
+        if(gameTime > 0) {
+            score += value;
+            gameTime += value;
+        }
+    }
+
     @Override
     public boolean uneliminatableCheck() {
         if(eliminateService.uneliminatableCheck(gridData)) {
@@ -93,5 +102,15 @@ public class GameControlImpl implements GameControl {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int getGameTime() {
+        return this.gameTime;
+    }
+
+    @Override
+    public void incGameTime() {
+        this.gameTime--;
     }
 }

@@ -14,4 +14,8 @@ public interface GameControl {
     int getScore();
 
     boolean uneliminatableCheck();
+
+    int getGameTime();
+
+    void incGameTime();
 }

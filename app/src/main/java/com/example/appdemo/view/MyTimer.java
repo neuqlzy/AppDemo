@@ -10,4 +10,10 @@ public class MyTimer extends Timer {
         this.schedule(task, delay);
         return task;
     }
+
+    public TimerTask schedule(final Runnable r, long delay, long period) {
+        final TimerTask task = new TimerTask() { public void run() { r.run(); }};
+        this.schedule(task, delay, period);
+        return task;
+    }
 }

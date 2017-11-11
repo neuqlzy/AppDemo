@@ -11,13 +11,14 @@ import android.widget.Toast;
 import com.example.appdemo.R;
 import com.example.appdemo.control.ControlCenter;
 
-import org.w3c.dom.Text;
-
 public class GameActivity extends AppCompatActivity {
     protected GridView game_grid;
     protected TextView txt_score;
+    protected TextView txt_exit;
+    protected TextView txt_game_time;
     protected int selected = -1;
     protected MyTimer timer;
+    protected MyTimer timer_fill;
     protected MyTimer timer_eli;
     protected MyTimer timer_check;
     protected boolean waiting = false;
@@ -28,9 +29,35 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         txt_score = (TextView)findViewById(R.id.txt_score);
-        game_grid = (GridView)findViewById(R.id.game_grid);
+        txt_game_time = (TextView)findViewById(R.id.txt_game_time);
+        txt_exit = (TextView) findViewById(R.id.txt_exit);
+        txt_exit.setOnClickListener(this::exit_click);
+        game_grid = (GridView) findViewById(R.id.game_grid);
         game_grid.setAdapter(new GridAdapter(this, ControlCenter.getGameControl().getItemIds()));
         game_grid.setOnItemClickListener(this::item_click);
+        timer = new MyTimer();
+        timer.schedule(this::gameTimer_task, 1000, 1000);
+    }
+
+    private void gameTimer_task() {
+        ControlCenter.getGameControl().incGameTime();
+        txt_game_time.post(GameActivity.this::setGameTime);
+        if(ControlCenter.getGameControl().getGameTime() <= 0) {
+            timer.cancel();
+            txt_score.post(GameActivity.this::score_board);
+        }
+    }
+
+    private void setGameTime() {
+        txt_game_time.setText("时间：" + ControlCenter.getGameControl().getGameTime());
+    }
+
+    private void score_board() {
+        ControlCenter.getActivityControl().turnActivity(GameActivity.this, ScoreActivity.class);
+    }
+
+    private void exit_click(View view) {
+        ControlCenter.getActivityControl().turnActivity(GameActivity.this, MainActivity.class);
     }
 
     protected void item_click(AdapterView<?> adapterView, View view, int i, long l) {
@@ -49,8 +76,8 @@ public class GameActivity extends AppCompatActivity {
                 adapter.setItemId(ControlCenter.getGameControl().getItemIds());
             }
             selected = -1;
-            timer = new MyTimer();
-            timer.schedule(this::fill_task, 200);
+            timer_fill = new MyTimer();
+            timer_fill.schedule(this::fill_task, 200);
             waiting = true;
         }
         adapter.notifyDataSetChanged();
@@ -60,17 +87,16 @@ public class GameActivity extends AppCompatActivity {
         GridAdapter adapter = (GridAdapter) game_grid.getAdapter();
         adapter.setItemId(ControlCenter.getGameControl().getItemIds());
         adapter.notifyDataSetChanged();
-        txt_score.setText(Integer.toString(ControlCenter.getGameControl().getScore()));
+        txt_score.setText("得分：" + ControlCenter.getGameControl().getScore());
+        setGameTime();
     }
 
     private void fill_task() {
-        timer.cancel();
-        int k = ControlCenter.getGameControl().fillEmptyBlock();
-        if(k > 0) {
-            game_grid.post(GameActivity.this::refresh);
-            timer_eli = new MyTimer();
-            timer_eli.schedule(this::eliminate_task, 200);
-        } else waiting = false;
+        timer_fill.cancel();
+        ControlCenter.getGameControl().fillEmptyBlock();
+        game_grid.post(GameActivity.this::refresh);
+        timer_eli = new MyTimer();
+        timer_eli.schedule(this::eliminate_task, 200);
     }
 
     private void eliminate_task() {
@@ -78,8 +104,8 @@ public class GameActivity extends AppCompatActivity {
         int k = ControlCenter.getGameControl().eliminate();
         if(k > 0) {
             game_grid.post(GameActivity.this::refresh);
-            timer = new MyTimer();
-            timer.schedule(this::fill_task, 200);
+            timer_fill = new MyTimer();
+            timer_fill.schedule(this::fill_task, 200);
         } else {
             timer_check = new MyTimer();
             timer_check.schedule(this::uneliminatableCheck_task, 200);
@@ -89,8 +115,8 @@ public class GameActivity extends AppCompatActivity {
     private void uneliminatableCheck_task() {
         timer_check.cancel();
         if(ControlCenter.getGameControl().uneliminatableCheck()) {
-            game_grid.post(GameActivity.this::refresh);
             game_grid.post(this::uneliminatable_toast);
+            game_grid.post(GameActivity.this::refresh);
         }
         waiting = false;
     }
