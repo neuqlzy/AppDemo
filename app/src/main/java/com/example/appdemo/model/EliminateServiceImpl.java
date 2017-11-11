@@ -112,7 +112,7 @@ public class EliminateServiceImpl implements EliminateService {
                     }
                     lastId = gridData[x][y];
                     startPoint = y;
-                } else if(y == gridData[x].length - 1 && y - startPoint > 2) {
+                } else if(y == gridData[x].length - 1 && y - startPoint >= 2) {
                     Eliminatable eli = new Eliminatable();
                     eli.setStart(new Point(x, startPoint));
                     eli.setEnd(new Point(x, y));
@@ -143,7 +143,7 @@ public class EliminateServiceImpl implements EliminateService {
                     }
                     lastId = gridData[x][y];
                     startPoint = x;
-                } else if(x == gridData.length - 1 && x - startPoint > 2) {
+                } else if(x == gridData.length - 1 && x - startPoint >= 2) {
                     Eliminatable eli = new Eliminatable();
                     eli.setStart(new Point(startPoint, y));
                     eli.setEnd(new Point(x, y));

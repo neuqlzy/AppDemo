@@ -62,17 +62,20 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void fill_task() {
+        timer.cancel();
         int k = ControlCenter.getGameControl().fillEmptyBlock();
         if(k > 0) {
             game_grid.post(GameActivity.this::refresh);
             timer_eli = new MyTimer();
-            timer_eli.schedule(this::eliminate_task, 500);
+            timer_eli.schedule(this::eliminate_task, 200);
         } else waiting = false;
     }
 
     private void eliminate_task() {
+        timer_eli.cancel();
         int k = ControlCenter.getGameControl().eliminate();
         if(k > 0) {
+            game_grid.post(GameActivity.this::refresh);
             timer = new MyTimer();
             timer.schedule(this::fill_task, 200);
         } else waiting = false;
